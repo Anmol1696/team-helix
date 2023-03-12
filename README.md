@@ -1,3 +1,11 @@
+# team-helix
+
+Hackathon repo for team Helix
+
+## L2 Staking Frontend
+
+This is the frontend repo for the L2 staking app, which allows you to stake ethereum directly from an L2 (in this case, Optimism).
+
 ## Getting Started
 
 Create a project using this example:
