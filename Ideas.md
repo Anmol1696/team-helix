@@ -15,6 +15,13 @@ People trying to launch on any of the EVM based chains face various problems:
 2. testing of application on scale is also not possible testnet if it involves a lot of test tokens
 
 ### Solution
+Build a single click dev environment that makes it easy for developers to test their system locally as well as at scale 
+on kubernetes cluster. It will provide the developers with following things:
+1. spin up ethereum node with consensus and execution layer
+2. spin up OP node with bridge sequencer
+3. spin up explorer to see the transactions
+4. spin any other layer2 alongside this
+5. customisation of the setup to cater project needs
 
 ### Tech Stack to be used
 Docker, Kubernetes, Eth Clients, Optimism Clients
@@ -36,6 +43,8 @@ Using OpStack will be best for it as Coinbase is also using opstack to build the
 users to participate in the ecosystem. Also, given the roadmap of Optimism all the opstack L2 will be interoperable and 
 can be used in a way similar to cosmos chains. We can customise what kind of thing we want to develop on it while also 
 securing the Ethereum ecosystem with validators
+
+### Tech Stack to be used
 
 
 ## 3. ETF
