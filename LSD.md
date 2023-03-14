@@ -15,3 +15,7 @@
 7. 
 
 ### Solution
+1. Value proposition:
+   1. better way to stake Ether
+   2. More eth will move to layer2
+   3. increase the security of ethereum
