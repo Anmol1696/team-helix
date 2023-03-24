@@ -12,6 +12,11 @@
   align-items: center;
 }
 
+.stake {
+  padding: 5px;
+  margin-left: 10px;
+}
+
 .stakeContainer {
   display: flex;
   margin-bottom: 2rem;

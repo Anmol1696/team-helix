@@ -5,6 +5,7 @@ import {
   useContract,
   Web3Button
 } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 import { useState } from "react";
 import { NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
 import "./styles/Home.css";
@@ -13,7 +14,7 @@ export default function Home() {
   
   // Set contract address, user address, and amount to stake state variables
   const stakingContractAddress = "0xd4c624766f4e006Dbe924D24C92A8d9927534C30";
-  //const address = useAddress();
+  const address = useAddress();
   const [amountToStake, setAmountToStake] = useState<number>(0);
 
   // Set the staking contract to be used
@@ -22,7 +23,9 @@ export default function Home() {
     "custom"
   );
 
-  const { data: stakingTokenBalance, isLoading: isBalanceLoading} = useBalance(NATIVE_TOKEN_ADDRESS);
+  // Get token balances. TODO: Get staked token balance
+  const { data: stakingTokenBalance, isLoading: isBalanceLoading} 
+    = useBalance(NATIVE_TOKEN_ADDRESS);
 
   if (!isBalanceLoading) {
     console.log("Showing eth balance of: " + stakingTokenBalance);
@@ -40,7 +43,7 @@ export default function Home() {
         <p className="description">
           Try staking some ETH!
         </p>
-  
+
         <div>
           <ConnectWallet />
         </div>
@@ -56,14 +59,24 @@ export default function Home() {
           />
           </label>
         </div>
-        <div className="stake">
           <Web3Button
-            contractAddress="0xd4c624766f4e006Dbe924D24C92A8d9927534C30"
-            action={(contract) => console.log(contract)} //contract.depositTransaction(address, value, gasLimit, false, )}
+            className = "stake"
+            contractAddress={stakingContractAddress}
+            action={
+              async (contract) => { 
+                await contract.call(
+                  "depositTransaction",
+                  address,
+                  ethers.utils.parseEther(amountToStake),
+                  50000,
+                  false,
+                  ethers.constants.HashZero,
+                  );
+                alert("Staking successful!");
+              }}
           >
             Stake
           </Web3Button>
-        </div>
       </main>
     </div>
   );
