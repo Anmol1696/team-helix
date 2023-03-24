@@ -1,47 +1,58 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { 
+  ConnectWallet, 
+  useAddress,
+  useBalance,
+  useContract,
+  Web3Button
+} from "@thirdweb-dev/react";
+//import { useState } from "react";
+import { NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
 import "./styles/Home.css";
 
 export default function Home() {
+  
+  // Set contract address, user address, and amount to stake state variables
+  const stakingContractAddress = "0xd4c624766f4e006Dbe924D24C92A8d9927534C30";
+  const address = useAddress();
+  // const [amountToStake, setAmountToStake] = useState(0);
+
+  // Set the staking contract to be used
+  const { contract: staking, isLoading: isStakingLoading } = useContract(
+    stakingContractAddress,
+    "custom"
+  );
+
+  const { data: stakingTokenBalance, isLoading: isBalanceLoading} = useBalance(NATIVE_TOKEN_ADDRESS);
+
+  if (!isBalanceLoading) {
+    console.log("Showing eth balance of: " + stakingTokenBalance);
+  }
+  if (!isStakingLoading) {
+    console.log("Connected to contract ABI: " + staking?.abi)
+  }
+
   return (
     <div className="container">
       <main className="main">
         <h1 className="title">
-          Welcome to <a href="https://thirdweb.com/">thirdweb</a>!
+          Welcome to l2staking!
         </h1>
-
         <p className="description">
-          Get started by configuring your desired network in{" "}
-          <code className="code">src/index.tsx</code>, then modify the{" "}
-          <code className="code">src/App.tsx</code> file!
+          Try staking some ETH!
         </p>
-
-        <div className="connect">
-          <ConnectWallet />
-        </div>
-
-        <div className="grid">
-          <a href="https://portal.thirdweb.com/" className="card">
-            <h2>Portal &rarr;</h2>
-            <p>
-              Guides, references and resources that will help you build with
-              thirdweb.
-            </p>
-          </a>
-
-          <a href="https://thirdweb.com/dashboard" className="card">
-            <h2>Dashboard &rarr;</h2>
-            <p>
-              Deploy, configure and manage your smart contracts from the
-              dashboard.
-            </p>
-          </a>
-
-          <a href="https://portal.thirdweb.com/templates" className="card">
-            <h2>Templates &rarr;</h2>
-            <p>
-              Discover and clone template projects showcasing thirdweb features.
-            </p>
-          </a>
+        <label>
+        Amount of ETH to stake: <input name="stakingAmount" type="number"/>
+          </label>
+        <div className="stake">
+          {address ? (
+          <Web3Button
+            contractAddress="0xd4c624766f4e006Dbe924D24C92A8d9927534C30"
+            action={(contract) => console.log(contract)} //contract.depositTransaction(address, value, gasLimit, false, )}
+          >
+            Stake
+          </Web3Button>) : (
+            <ConnectWallet />
+          )}
         </div>
       </main>
     </div>
