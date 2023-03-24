@@ -12,6 +12,17 @@
   align-items: center;
 }
 
+.stakeContainer {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.textbox {
+  padding: 5px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
 .title a {
   color: #f213a4;
   text-decoration: none;
