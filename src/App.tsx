@@ -52,31 +52,37 @@ export default function Home() {
         <label>
         Amount of ETH to stake: 
           <input
-            className={"textbox"}
+            className="textbox"
             type="number"
             value={amountToStake}
             onChange={(e) => setAmountToStake(e.target.value)}
           />
           </label>
         </div>
-          <Web3Button
-            className = "stake"
-            contractAddress={stakingContractAddress}
-            action={
-              async (contract) => { 
-                await contract.call(
-                  "depositTransaction",
-                  address,
-                  ethers.utils.parseEther(amountToStake),
-                  50000,
-                  false,
-                  ethers.constants.HashZero,
-                  );
-                alert("Staking successful!");
-              }}
-          >
-            Stake
-          </Web3Button>
+        <Web3Button
+          className = "stake"
+          contractAddress={stakingContractAddress}
+          action={
+            async (contract) => { 
+              await contract.call(
+                "depositTransaction",
+                address,
+                ethers.utils.parseEther(amountToStake),
+                50000,
+                false,
+                ethers.constants.HashZero,
+                );
+              alert("Staking successful!");
+            }}
+        >
+          Stake
+        </Web3Button>
+        <div className="grid" id="center">
+          <button className="card">
+            <h2>ETH balance</h2>
+            <p>{stakingTokenBalance?.displayValue}</p>
+          </button>
+        </div>
       </main>
     </div>
   );
