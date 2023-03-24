@@ -41,7 +41,7 @@ export default function Home() {
           Welcome to l2staking!
         </h1>
         <p className="description">
-          Try staking some ETH!
+          Stake some ETH!
         </p>
 
         <div>
