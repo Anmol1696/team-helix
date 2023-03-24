@@ -15,6 +15,15 @@ a {
   box-sizing: border-box;
 }
 
+label {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: center;
+  line-height: 26px;
+  margin: 10px;
+}
+
 html {
   color-scheme: dark;
 }

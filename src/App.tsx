@@ -50,7 +50,7 @@ export default function Home() {
 
         <div className={"stakeContainer"}>
         <label>
-        Amount of ETH to stake: 
+        Amount of ETH to stake:
           <input
             className="textbox"
             type="number"
