@@ -15,7 +15,7 @@ export default function Home() {
   // Set contract address, user address, and amount to stake state variables
   const stakingContractAddress = "0xd4c624766f4e006Dbe924D24C92A8d9927534C30";
   const address = useAddress();
-  const [amountToStake, setAmountToStake] = useState<number>(0);
+  const [amountToStake, setAmountToStake] = useState<string>("");
 
   // Set the staking contract to be used
   const { contract: staking, isLoading: isStakingLoading } = useContract(
@@ -55,7 +55,7 @@ export default function Home() {
             className={"textbox"}
             type="number"
             value={amountToStake}
-            onChange={(e) => setAmountToStake(+e.target.value)}
+            onChange={(e) => setAmountToStake(e.target.value)}
           />
           </label>
         </div>
