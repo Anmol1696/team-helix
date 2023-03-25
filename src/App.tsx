@@ -11,26 +11,27 @@ import "./styles/Home.css";
 
 export default function Home() {
   
-  // Set contract address, user address, and amount to stake state variables
+  // Set constants incl. contract address, user address, and amount to stake state variables
   const stakingContractAddress = "0x3D5568dBc683B199Bef5E329Ae88d52AfdDb8564";
   const address = useAddress();
   const [amountToStake, setAmountToStake] = useState<string>("");
-  const provider = ethers.getDefaultProvider();
   const abi = [
     "function depositTransaction(address to, uint256 value, uint64 gasLimit, bool isCreation, bytes data) payable returns ()"
   ]
   const signer = useSigner();
   const contract = new ethers.Contract(stakingContractAddress, abi, signer);
 
+  // Set options for the contract call
+  const gasLimit = 155000;
+  const options = {
+    value: ethers.utils.parseEther(amountToStake),
+    gasLimit: gasLimit,
+  }
+
   // Get token balances. TODO: Get staked token balance
   const { data: stakingTokenBalance, isLoading: isBalanceLoading} 
     = useBalance(NATIVE_TOKEN_ADDRESS);
-
-  if (!isBalanceLoading) {
-    console.log("Showing eth balance of: " + stakingTokenBalance?.displayValue);
-  }
-  console.log("Using contract address: " + stakingContractAddress);
-
+  
   return (
     <div className="container">
       <main className="main">
@@ -61,9 +62,10 @@ export default function Home() {
             {() => contract.depositTransaction(
                 address,
                 ethers.utils.parseEther(amountToStake),
-                50000,
+                gasLimit,
                 false,
                 ethers.constants.HashZero,
+                options
               )
             }
             >
@@ -72,8 +74,8 @@ export default function Home() {
         </div>
         <div className="grid" id="center">
           <button className="card">
-            <h2>ETH balance</h2>
-            <p>{stakingTokenBalance?.displayValue}</p>
+            <h2>Native token balance</h2>
+            <p>{isBalanceLoading ? 0 : stakingTokenBalance?.displayValue}</p>
           </button>
         </div>
       </main>
