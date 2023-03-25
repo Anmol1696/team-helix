@@ -9,11 +9,7 @@
     "@testing-library/user-event": "^14.2.0",
     "@thirdweb-dev/react": "^3.9.0",
     "@thirdweb-dev/sdk": "^3.9.0",
-<<<<<<< HEAD
     "ethers": "5.6.9",
-=======
-    "ethers": "^5.6.8",
->>>>>>> d725415 (Initial commit from npx thirdweb create)
     "react": "^18.2",
     "react-dom": "^18.2",
     "react-scripts": "^5.0.1",
