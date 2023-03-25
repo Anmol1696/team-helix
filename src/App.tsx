@@ -23,8 +23,12 @@ export default function Home() {
 
   // Set options for the contract call
   const gasLimit = 155000;
+  let value = ethers.utils.parseEther('0');
+  if (amountToStake) {
+    value = ethers.utils.parseEther(amountToStake);
+  }
   const options = {
-    value: ethers.utils.parseEther(amountToStake),
+    value: value,
     gasLimit: gasLimit,
   }
 
