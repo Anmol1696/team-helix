@@ -2,8 +2,7 @@ import {
   ConnectWallet, 
   useAddress,
   useBalance,
-  useContract,
-  Web3Button
+  useSigner,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { useState } from "react";
@@ -13,26 +12,24 @@ import "./styles/Home.css";
 export default function Home() {
   
   // Set contract address, user address, and amount to stake state variables
-  const stakingContractAddress = "0xd4c624766f4e006Dbe924D24C92A8d9927534C30";
+  const stakingContractAddress = "0x3D5568dBc683B199Bef5E329Ae88d52AfdDb8564";
   const address = useAddress();
   const [amountToStake, setAmountToStake] = useState<string>("");
-
-  // Set the staking contract to be used
-  const { contract: staking, isLoading: isStakingLoading } = useContract(
-    stakingContractAddress,
-    "custom"
-  );
+  const provider = ethers.getDefaultProvider();
+  const abi = [
+    "function depositTransaction(address to, uint256 value, uint64 gasLimit, bool isCreation, bytes data) payable returns ()"
+  ]
+  const signer = useSigner();
+  const contract = new ethers.Contract(stakingContractAddress, abi, signer);
 
   // Get token balances. TODO: Get staked token balance
   const { data: stakingTokenBalance, isLoading: isBalanceLoading} 
     = useBalance(NATIVE_TOKEN_ADDRESS);
 
   if (!isBalanceLoading) {
-    console.log("Showing eth balance of: " + stakingTokenBalance);
+    console.log("Showing eth balance of: " + stakingTokenBalance?.displayValue);
   }
-  if (!isStakingLoading) {
-    console.log("Connected to contract ABI: " + staking?.abi)
-  }
+  console.log("Using contract address: " + stakingContractAddress);
 
   return (
     <div className="container">
@@ -59,24 +56,20 @@ export default function Home() {
           />
           </label>
         </div>
-        <Web3Button
-          className = "stake"
-          contractAddress={stakingContractAddress}
-          action={
-            async (contract) => { 
-              await contract.call(
-                "depositTransaction",
+        <div className = "stake">
+          <button onClick=
+            {() => contract.depositTransaction(
                 address,
                 ethers.utils.parseEther(amountToStake),
                 50000,
                 false,
                 ethers.constants.HashZero,
-                );
-              alert("Staking successful!");
-            }}
-        >
-          Stake
-        </Web3Button>
+              )
+            }
+            >
+              Stake
+        </button> 
+        </div>
         <div className="grid" id="center">
           <button className="card">
             <h2>ETH balance</h2>
