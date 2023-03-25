@@ -15,7 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-<<<<<<< HEAD
 label {
   display: flex;
   flex-direction: column;
@@ -25,8 +24,6 @@ label {
   margin: 10px;
 }
 
-=======
->>>>>>> d725415 (Initial commit from npx thirdweb create)
 html {
   color-scheme: dark;
 }
