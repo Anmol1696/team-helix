@@ -8,6 +8,7 @@ import { ethers } from "ethers";
 import { useState } from "react";
 import { NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
 import "./styles/Home.css";
+import useStakedBalance from "./useStakedBalance";
 
 export default function Home() {
   
@@ -15,6 +16,8 @@ export default function Home() {
   const stakingContractAddress = "0x3D5568dBc683B199Bef5E329Ae88d52AfdDb8564";
   const address = useAddress();
   const [amountToStake, setAmountToStake] = useState<string>("");
+  var safeAddress = address ? address : "";
+  const localBalance = useStakedBalance(safeAddress);
   const abi = [
     "function depositTransaction(address to, uint256 value, uint64 gasLimit, bool isCreation, bytes data) payable returns ()"
   ]
@@ -40,10 +43,10 @@ export default function Home() {
     <div className="container">
       <main className="main">
         <h1 className="title">
-          Welcome to l2staking!
+          L2 Staking
         </h1>
         <p className="description">
-          Stake some ETH!
+          Stake some ETH! Connect to Goerli to stake ETH on L2.
         </p>
 
         <div>
@@ -78,8 +81,14 @@ export default function Home() {
         </div>
         <div className="grid" id="center">
           <button className="card">
-            <h2>Native token balance</h2>
+            <h2>Current chain balance</h2>
             <p>{isBalanceLoading ? 0 : stakingTokenBalance?.displayValue}</p>
+          </button>
+        </div>
+        <div className="grid" id="center">
+          <button className="card">
+            <h2>L2 Staked Balance</h2>
+            <p>{localBalance}</p>
           </button>
         </div>
       </main>
