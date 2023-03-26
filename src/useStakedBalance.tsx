@@ -6,7 +6,6 @@ const localHostProvider = new ethers.providers.JsonRpcProvider("http://localhost
 export default function useStakedBalance(address: string) {
   const [balance, setBalance] = useState(0);
   const prevBalanceRef = useRef(0);
-  console.log(address);
   const fetchBalance = useCallback(async () => {
     const rawBalance = await localHostProvider.getBalance(address);
     const value = parseFloat(ethers.utils.formatEther(rawBalance));

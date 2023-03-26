@@ -81,7 +81,7 @@ export default function Home() {
         </div>
         <div className="grid" id="center">
           <button className="card">
-            <h2>Current chain balance</h2>
+            <h2>Native token balance</h2>
             <p>{isBalanceLoading ? 0 : stakingTokenBalance?.displayValue}</p>
           </button>
         </div>
